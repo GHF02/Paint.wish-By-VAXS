@@ -468,10 +468,8 @@ def langages():
   ChangeButton = tkinter.Button(langages, text="Changer", command=change_lang)
   ChangeButton.pack()
 
-
 #Titres
 screen.title('Paint.wish')
-
 
 def generate_button_fr():
   clearCommands()
@@ -479,9 +477,6 @@ def generate_button_fr():
   #Créer les buttons
   credits = tkinter.Label(fenetre, text="Créé par: Gaël Hébert-Furoy")
   credits.pack()
-
-  mathButton = tkinter.Button(fenetre, text="Calculette", command=caculation)
-  mathButton.pack()
 
   langButton = tkinter.Button(fenetre, text="Changer la langue", command=langages)
   langButton.pack()
