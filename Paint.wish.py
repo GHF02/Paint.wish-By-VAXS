@@ -38,6 +38,20 @@ class CalculDeMath():
    def division(number1, number2):
       return(int(number1) / int(number2))
 
+def grid():
+  hauteur = -250
+  for i in range(10):
+    t.penup()
+    t.goto(-250, hauteur)
+    t.pendown()
+    for i in range(10):
+      for i in range(4):
+        t.forward(50)
+        t.left(90)
+      t.forward(50)
+    hauteur += 50
+  t.goto(0, 0)
+
 def forw():
   #Change la couleur
   forw = tkinter.Toplevel(fenetre)
