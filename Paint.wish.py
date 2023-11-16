@@ -573,6 +573,9 @@ def generate_button_fr():
   langButton = tkinter.Button(fenetre, text="Changer la langue", command=langages)
   langButton.pack()
 
+  calcButton = tkinter.Button(fenetre, text="Calculer", command=nb1)
+  calcButton.pack()
+
   forwButton = tkinter.Button(fenetre, text="Avancer", command=forw)
   forwButton.pack()
 
