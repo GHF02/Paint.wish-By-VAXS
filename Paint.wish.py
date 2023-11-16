@@ -21,6 +21,9 @@ current_Cote = 0
 current_Toollangages = 0
 isFilling = False
 current_Text = ""
+nbr1=0
+nbr2=0
+answer=0
 
 pos_x = 0
 pos_y = 0
