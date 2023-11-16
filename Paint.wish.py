@@ -37,6 +37,84 @@ class CalculDeMath():
       return(int(number1) * int(number2))
    def division(number1, number2):
       return(int(number1) / int(number2))
+#FONCTIONS
+
+
+def nb1():
+  #Fait des calculs (1er chiffre)
+  nbr = tkinter.Toplevel(fenetre)
+  nbr.title("1er chiffre")
+  nbr.geometry("300x100")
+  canvas1 = tkinter.Canvas(nbr, width=50, height=50)
+  canvas1.pack()
+  entry1 = tkinter.Entry(nbr)
+  canvas1.create_window(0, 10, window=entry1)
+
+  def change_nbr():
+    global nbr1
+    if(entry1.get() == "ANS"):
+      nbr1 = result
+    else:
+      nbr1 = int(entry1.get())
+    nbr.destroy()
+    nb2()
+
+  ChangeButton = tkinter.Button(nbr, text="Entrer", command=change_nbr)
+  ChangeButton.pack()
+
+
+def nb2():
+  #Fait des calculs (2e chiffre)
+  nbr = tkinter.Toplevel(fenetre)
+  nbr.title("2e chiffre")
+  nbr.geometry("300x100")
+  canvas1 = tkinter.Canvas(nbr, width=50, height=50)
+  canvas1.pack()
+  entry1 = tkinter.Entry(nbr)
+  canvas1.create_window(0, 10, window=entry1)
+
+  def change_nbr():
+    global nbr2
+    if(entry1.get() == "ANS"):
+      nbr2 = result
+    else:
+      nbr2 = int(entry1.get())
+    nbr.destroy()
+    method()
+
+  ChangeButton = tkinter.Button(nbr, text="Entrer", command=change_nbr)
+  ChangeButton.pack()
+
+
+def method():
+  #Fait des calculs (method)
+  nbr = tkinter.Toplevel(fenetre)
+  nbr.title("Méthode")
+  nbr.geometry("300x100")
+  canvas1 = tkinter.Canvas(nbr, width=50, height=50)
+  canvas1.pack()
+  entry1 = tkinter.Entry(nbr)
+  canvas1.create_window(0, 10, window=entry1)
+
+  def change_nbr():
+    global nbr1
+    global nbr2
+    global result
+    metod = entry1.get()
+    if metod == "+":
+      result = CalculDeMath.addition(nbr1, nbr2)
+    elif metod == "-":
+      result = CalculDeMath.soustraction(nbr1, nbr2)
+    elif metod == "*":
+      result = CalculDeMath.multiplication(nbr1, nbr2)
+    elif metod == "/":
+      result = CalculDeMath.division(nbr1, nbr2)
+    answer = tkinter.Button(nbr, text=result)
+    answer.pack()
+    entry1.delete(0, 'end')
+
+  ChangeButton = tkinter.Button(nbr, text="Entrer", command=change_nbr)
+  ChangeButton.pack()
 
 def grid():
   hauteur = -250
