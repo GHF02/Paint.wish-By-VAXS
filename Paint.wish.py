@@ -1,13 +1,20 @@
 #Crédits:
+# Software Engineer : Gaël Furoy (https://github.com/GaelHF)
 # https://www.geeksforgeeks.org/
+# ~750 lignes de code
 
 #Bibliothèque
 import turtle
 import tkinter
-from typing import Text
+from sketchpy import canvas
+import requests
+from PIL import Image
 global square
 
 #Variables
+image = open('img.jpg', 'w')
+image.close()
+
 t = turtle.Turtle()
 screen = turtle.Screen()
 screen.setup(500, 500)
@@ -21,6 +28,7 @@ current_Cote = 0
 current_Toollangages = 0
 isFilling = False
 current_Text = ""
+current_URL = ""
 nbr1=0
 nbr2=0
 answer=0
@@ -120,6 +128,7 @@ def method():
   ChangeButton.pack()
 
 def grid():
+  # Fait une grille
   hauteur = -250
   for i in range(10):
     t.penup()
@@ -134,7 +143,7 @@ def grid():
   t.goto(0, 0)
 
 def forw():
-  #Change la couleur
+  #Avance
   forw = tkinter.Toplevel(fenetre)
   forw.title("Forward")
   forw.geometry("300x100")
@@ -151,7 +160,7 @@ def forw():
   ChangeButton.pack()
 
 def backw():
-  #Change la couleur
+  #Recule
   backw = tkinter.Toplevel(fenetre)
   backw.title("Backward")
   backw.geometry("300x100")
@@ -181,7 +190,7 @@ def triangle():
 
 def carre():
   global isFilling
-  #Fait un triangle
+  #Fait un carrer
   if isFilling == True:
     t.fillcolor(current_FillColor)
     t.begin_fill()
@@ -233,7 +242,7 @@ def circle():
   t.circle(current_Longeur)
 
 def toggleFill():
-  #Changer le mode remplissage
+  #Activer / Désactiver le mode remplissage
   global isFilling
   if isFilling == True:
     isFilling = False
@@ -271,7 +280,7 @@ def color():
   ChangeButton.pack()
 
 def fill_color():
-  #Change la couleur
+  #Change la couleur de remplissage
   fill_color = tkinter.Toplevel(fenetre)
   fill_color.title("Couleur de Remplissage")
   fill_color.geometry("300x100")
@@ -537,7 +546,7 @@ def minecraft():
         t.forward(50)
 
 def langages():
-  #Change la langue des bouttons
+  #Change la langue du menu
   langages = tkinter.Toplevel(fenetre)
   langages.title("Langages")
   langages.geometry("300x100")
@@ -563,15 +572,45 @@ def langages():
   ChangeButton = tkinter.Button(langages, text="Changer", command=change_lang)
   ChangeButton.pack()
 
+
+def draw():
+  #Dessine un image jpg
+  draw = tkinter.Toplevel(fenetre)
+  draw.title("Image")
+  draw.geometry("300x100")
+  canvas1 = tkinter.Canvas(draw, width=50, height=50)
+  canvas1.pack()
+  entry1 = tkinter.Entry(draw)
+  canvas1.create_window(0, 10, window=entry1)
+
+  def change_draw():
+    global current_URL
+    current_URL = entry1.get()
+    data = requests.get(current_URL).content
+    f = open('img.jpg', 'wb')
+    f.write(data)
+    f.close()
+    draw.destroy()
+    img = canvas.sketch_from_image('img.jpg')
+    img.draw(threshold = 127, pen = t)
+
+  drawButton = tkinter.Button(draw, text="Dessiner", command=change_draw)
+  drawButton.pack()
+
+
 #Titres
 screen.title('Paint.wish')
 
+# Version du Menu en Français
 def generate_button_fr():
   clearCommands()
   fenetre.title('Commandes')
   #Créer les buttons
   credits = tkinter.Label(fenetre, text="Créé par: Gaël Hébert-Furoy")
   credits.pack()
+
+  drawButton = tkinter.Button(fenetre, text="Dessiner depuis une URL", command=draw)
+  drawButton.pack()
 
   langButton = tkinter.Button(fenetre, text="Changer la langue", command=langages)
   langButton.pack()
@@ -641,6 +680,7 @@ def generate_button_fr():
   credits = tkinter.Label(fenetre, text="Créé par: Gaël Hébert-Furoy")
   credits.pack()
 
+#Version du Menu en Anglais
 def generate_button_en():
   clearCommands()
   fenetre.title("Commands")
@@ -648,6 +688,9 @@ def generate_button_en():
 
   credits = tkinter.Label(fenetre, text="Made by: Gaël Hébert-Furoy")
   credits.pack()
+
+  drawButton = tkinter.Button(fenetre, text="Draw from an URL", command=draw)
+  drawButton.pack()
 
   langButton = tkinter.Button(fenetre, text="Change language", command=langages)
   langButton.pack()
@@ -743,5 +786,6 @@ def main_loop():
   fenetre.mainloop()
 
 
+# Boucle
 generate_button_fr()
 main_loop()
